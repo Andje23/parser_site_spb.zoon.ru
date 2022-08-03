@@ -14,7 +14,35 @@ headers = {
 }
 
 
-# def get_source_html(url: str) -> None:
-#     """Getting page html code"""
-#
-#     driver = webdriver.Chrome()
+def _write_html_code_to_file(driver: webdriver) -> None:
+    with open("parse/source-page.html", "w") as file:
+        file.write(driver.page_source)
+
+
+def get_source_html(url: str) -> None:
+    """Getting page html code"""
+
+    driver = webdriver.Chrome(
+        executable_path="driver_path"
+    )
+
+    driver.maximize_window()
+
+    try:
+        driver.get(url=url)
+        time.sleep(3)
+
+        while True:
+            find_more_element = driver.find_element_by_class_name("catalog-button-showMore")
+
+            if driver.find_element_by_class_name("hasmore-text"):
+                _write_html_code_to_file(driver=driver)
+
+
+
+def main():
+    get_source_html(url="https://spb.zoon.ru/medical/?search_query_form=1&m%5B5200e522a0f302f066000055%5D=1&center%5B%5D=59.91878264665887&center%5B%5D=30.342586983263384&zoom=10")
+
+
+if __name__ == '__main__':
+    main()
