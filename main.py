@@ -49,6 +49,25 @@ def get_source_html(url: str) -> None:
         driver.quit()
 
 
+    def get_items_urls(file_path: str) -> str:
+        with open(file_path) as file:
+            scr = file.read()
+            
+        soup = BeautifulSoup(scr, "lxml")
+        items_divs = soup.find_all("div", class_="service-description")
+        
+        urls = []
+        for item in items_divs:
+            item_url = item.find("div", class_="H3").find("a").get("href")
+            urls.append(item_url)
+
+        with open("parse/items_urls2.txt", "w") as file:
+            for url in urls:
+                file.write(f"{url}\n")
+
+        return "[INFO] Urls collected successfully!"
+
+
 
 def main():
     get_source_html(url="https://spb.zoon.ru/medical/?search_query_form=1&m%5B5200e522a0f302f066000055%5D=1&center%5B%5D=59.91878264665887&center%5B%5D=30.342586983263384&zoom=10")
