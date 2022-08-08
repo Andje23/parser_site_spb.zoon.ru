@@ -37,6 +37,16 @@ def get_source_html(url: str) -> None:
 
             if driver.find_element_by_class_name("hasmore-text"):
                 _write_html_code_to_file(driver=driver)
+                break
+            else:
+                action = ActionChains(driver)
+                action.move_to_element(find_more_element).perform()
+                time.sleep(3)
+    except Exception as _ex:
+        print(_ex)
+    finally:
+        driver.close()
+        driver.quit()
 
 
 
