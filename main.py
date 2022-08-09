@@ -68,6 +68,21 @@ def get_source_html(url: str) -> None:
         return "[INFO] Urls collected successfully!"
 
 
+def get_data(file_path: str) -> str:
+    with open(file_path) as file:
+        url_list = [url.strip() for url in file.readlines()]
+
+    result_list = []
+    url_count = len(url_list)
+    count = 1
+    for url in url_list:
+        response = requests.get(url, headers=headers)
+        soup = BeautifulSoup(response.text, "lxml")
+
+        try:
+            item_name = soup.find("span", {"itemprom": "name"}).text.strip()
+        except Exception as _ex:
+            item_name = None
 
 def main():
     get_source_html(url="https://spb.zoon.ru/medical/?search_query_form=1&m%5B5200e522a0f302f066000055%5D=1&center%5B%5D=59.91878264665887&center%5B%5D=30.342586983263384&zoom=10")
