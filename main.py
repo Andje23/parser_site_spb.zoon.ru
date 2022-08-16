@@ -99,6 +99,12 @@ def get_data(file_path: str) -> str:
         except Exception as _ex:
             item_address = None
 
+        try:
+            item_site = soup.find(text=re.compile("Сайт|официальный сайт")).find_next().text.strip()
+        except Exception as _ex:
+            item_site = None
+
+
 
 
 def main():
