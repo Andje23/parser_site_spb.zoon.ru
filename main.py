@@ -103,6 +103,16 @@ def get_data(file_path: str) -> str:
             item_site = soup.find(text=re.compile("Сайт|официальный сайт")).find_next().text.strip()
         except Exception as _ex:
             item_site = None
+        
+        social_networks_list = []
+        try:
+            item_social_networks = soup.find(text=re.compile("Страница в соцсетях")).find_next().find_all("a")
+            for sn in item_social_networks:
+                sn_url = sn.get("href")
+                sn_url = unquote(sn_url.split("?to=")[1].split("&")[0])
+                social_networks_list.append(sn_url)
+        except Exception as _ex:
+            social_networks_list = None
 
 
 
