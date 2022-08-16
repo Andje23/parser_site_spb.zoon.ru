@@ -84,6 +84,17 @@ def get_data(file_path: str) -> str:
         except Exception as _ex:
             item_name = None
 
+        item_phones_list = []
+        try:
+            item_phones = soup.find("div", class_="service-phones-list").find_all("a", class_="js-phone-number")
+
+            for phone in item_phones:
+                item_phone = phone.get("href").split(":")[-1].strip()
+                item_phones_list.append(item_phone)
+        except Exception as _ex:
+            item_phones_list = None
+
+
 def main():
     get_source_html(url="https://spb.zoon.ru/medical/?search_query_form=1&m%5B5200e522a0f302f066000055%5D=1&center%5B%5D=59.91878264665887&center%5B%5D=30.342586983263384&zoom=10")
 
