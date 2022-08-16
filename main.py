@@ -114,6 +114,17 @@ def get_data(file_path: str) -> str:
         except Exception as _ex:
             social_networks_list = None
 
+        result_list.append(
+            {
+                "item_name": item_name,
+                "item_url": url,
+                "item_phones_list": item_phones_list,
+                "item_address": item_address,
+                "item_site": item_site,
+                "social_networks_list": social_networks_list,
+            }
+        )
+
 
 
 
