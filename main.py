@@ -125,6 +125,13 @@ def get_data(file_path: str) -> str:
             }
         )
 
+        time.sleep(random.randrange(2, 5))
+
+        if count%10 == 0:
+            time.sleep(random.randrange(5, 9))
+
+
+
 
 
 
